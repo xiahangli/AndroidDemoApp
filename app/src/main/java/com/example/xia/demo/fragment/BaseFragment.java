@@ -1,5 +1,6 @@
 package com.example.xia.demo.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,11 @@ public class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         //ToolBar title 等初始化
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
     /**

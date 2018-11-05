@@ -162,6 +162,7 @@ public class HttpJuHeMethods {
      */
     public  void showMeTheCode(){
         Observable.just("long", "longer", "longest")
+
                 .map(String::length)//method references are not supported at level ‘7’
                 .subscribe(length -> System.out.println("item length " + length));
     }

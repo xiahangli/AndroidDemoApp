@@ -1,13 +1,26 @@
 package com.example.xia.demo;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.xia.demo.fragment.ChatFragment;
+import com.example.xia.demo.rx.Func1;
+import com.example.xia.demo.rx.Observable;
+import com.example.xia.demo.rx.OnSubscrible;
+import com.example.xia.demo.rx.Subscrible;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FrameLayout frame_layout = findViewById(R.id.frame_layout);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,new ChatFragment());
+        fragmentTransaction.commit();
+
 //        LinearLayout linearLayout = findViewById(R.id.ll);
 //            ImageView iv = new ImageView(this);
 //            iv.setImageResource(R.mipmap.world_map);
@@ -41,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //                .navigation();
         /**=================第二步发起路由跳转end=========================*/
 //        initView();
-//        final Button undo = findViewById(R.id.undo);
+        final Button undo = findViewById(R.id.undo);
 
 //       final GuaGuaKa guaGuaKa = findViewById(R.id.guaguaka);
 
@@ -62,31 +81,31 @@ public class MainActivity extends AppCompatActivity {
          *不关心兄弟如何把老婆给他的，他老婆怎么把闺蜜给他的
          * Bitmap 开房
          */
-//        undo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               //todo
-//                Observable.create(new OnSubscrible<String>() {
-//                    @Override
-//                    public void call(Subscrible<? super String> subscrible) {
-//                        //do sth
-//                        subscrible.onNext("男生，看电影");
-//                    }
-//                }).map(new Func1<String, Bitmap>() {
-//                    @Override
-//                    public Bitmap call(String s) {
-//                        Log.i(TAG,s);
-//                        Log.i(TAG,"老婆不愿意和你开房");
-//                        return BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-//                    }
-//                }).subscrible(new Subscrible<Bitmap>() {//这个new 的Subscrible是
-//                    @Override
-//                    public void onNext(Bitmap bitmap) {
-//                        Log.i(TAG,"---->开房的女生");
-//                    }
-//                });
-//            }
-//        });
+        undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //todo
+                Observable.create(new OnSubscrible<String>() {
+                    @Override
+                    public void call(Subscrible<? super String> subscrible) {
+                        //do sth
+                        subscrible.onNext("男生，看电影");
+                    }
+                }).map(new Func1<String, Bitmap>() {
+                    @Override
+                    public Bitmap call(String s) {
+                        Log.i(TAG,s);
+                        Log.i(TAG,"老婆不愿意和你开房");
+                        return BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                    }
+                }).subscrible(new Subscrible<Bitmap>() {//这个new 的Subscrible是
+                    @Override
+                    public void onNext(Bitmap bitmap) {
+                        Log.i(TAG,"---->开房的女生");
+                    }
+                });
+            }
+        });
 //        Button make_trans = findViewById(R.id.make_trans);
 //        make_trans.setOnClickListener(new View.OnClickListener() {
 //            @Override

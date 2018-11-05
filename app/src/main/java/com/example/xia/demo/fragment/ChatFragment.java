@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.xia.demo.R;
+
 
 /**
  * @User Xiahangli
@@ -37,8 +39,8 @@ public class ChatFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.)
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.chat_fragment,container,false);
+        return view;
     }
 
     //todo 防止内存泄漏

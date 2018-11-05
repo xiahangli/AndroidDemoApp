@@ -21,8 +21,8 @@ public class Observable<T> {
     /**
      * 静态方法
      */
-    public static <T>    Observable<T> create(OnSubscrible<T> onSubscrible) {
-        return  new    Observable<T>(onSubscrible);
+    public static <T> Observable<T> create(OnSubscrible<T> onSubscrible) {
+        return new Observable<T>(onSubscrible);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Observable<T> {
      * @param <R>
      * @return
      */
-    public <R>    Observable<R> map(Func1<? super T, ? extends R> func1) {
-        return new    Observable<>(new OnSubscribleLift<T, R>(onSubscrible, func1));
+    public <R> Observable<R> map(Func1<? super T, ? extends R> func1) {
+        return new Observable<>(new OnSubscribleLift<T, R>(onSubscrible, func1));
     }
 }

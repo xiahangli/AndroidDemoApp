@@ -1,0 +1,11 @@
+两种方式复制bitmap
+1.bitmap.copy
+2.bitmap.create
+
+截图api
+Bitmap.setDrawingCacheEnable
+bitmap.getDrawCache;
+
+减少使用setBitmapResource setBItmapImage BitmapFactory.decodeResourse
+
+及时捕获OUtofMemoryError注意不是Exception

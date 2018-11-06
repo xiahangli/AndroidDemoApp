@@ -11,9 +11,12 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,6 +40,7 @@ public class HttpJuHeMethods {
      */
     private JuHeService juheService;
     private Map<Class,Object> mServices = new HashMap<>();
+    private String TAG = "HttpJuHeMethods";
 
     //构造方法私有
     private HttpJuHeMethods() {
@@ -156,6 +160,27 @@ public class HttpJuHeMethods {
                 });//最后别忘了订阅
 //        toSubscribe(observable, subscriber);
     }
+
+    public void memoryLeakage(){
+        Observable observable = Observable.create(new ObservableOnSubscribe<String >() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                //emitter 发送消息
+                Thread.sleep(10000000);
+                emitter.onNext("hello");
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+               ;
+      Disposable disposable =   observable.subscribe(new Consumer() {
+            @Override
+            public void accept(Object o) throws Exception {
+                Log.d(TAG,o.toString());
+            }
+        });
+
+    }
+
 
     /**
      *

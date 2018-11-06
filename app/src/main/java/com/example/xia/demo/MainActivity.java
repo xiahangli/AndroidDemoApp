@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xia.demo.fragment.ChatFragment;
+import com.example.xia.demo.retrofit.HttpJuHeMethods;
 import com.example.xia.demo.rx.Func1;
 import com.example.xia.demo.rx.Observable;
 import com.example.xia.demo.rx.OnSubscrible;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.OnScrollListener recScrollListener;
     private LinearLayoutManager mLinearLayoutManager;
 
+    private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,new ChatFragment());
         fragmentTransaction.commit();
-
+        HttpJuHeMethods.getInstance().memoryLeakage();
+        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.eight_eight);
 //        LinearLayout linearLayout = findViewById(R.id.ll);
 //            ImageView iv = new ImageView(this);
 //            iv.setImageResource(R.mipmap.world_map);

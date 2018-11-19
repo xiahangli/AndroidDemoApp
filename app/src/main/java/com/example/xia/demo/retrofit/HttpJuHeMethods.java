@@ -6,6 +6,7 @@ import com.example.xia.demo.bean.HttpJuHeResult;
 import com.example.xia.demo.bean.JuheDream;
 import com.example.xia.demo.retrofit.service.JuHeService;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +42,7 @@ public class HttpJuHeMethods {
     private JuHeService juheService;
     private Map<Class,Object> mServices = new HashMap<>();
     private String TAG = "HttpJuHeMethods";
+    private Disposable disposable;
 
     //构造方法私有
     private HttpJuHeMethods() {
@@ -86,8 +88,12 @@ public class HttpJuHeMethods {
         return t;
     }
 
+    public void destroy() {
+        disposable.dispose();
+    }
 
-   //在访问HttpMethods时创建单例,todo why final
+
+    //在访问HttpMethods时创建单例,todo why final
     private static class SingletonHolder {
         private static final HttpJuHeMethods INSTANCE = new HttpJuHeMethods();
     }
@@ -172,7 +178,7 @@ public class HttpJuHeMethods {
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                ;
-      Disposable disposable =   observable.subscribe(new Consumer() {
+       disposable =   observable.subscribe(new Consumer() {
             @Override
             public void accept(Object o) throws Exception {
                 Log.d(TAG,o.toString());

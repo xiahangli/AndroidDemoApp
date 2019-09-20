@@ -8,12 +8,13 @@ package com.example.xia.demo.rx;
  * @Descrip
  */
 public class OnSubscribleLift<T, R> implements OnSubscrible<R> {
-    OnSubscrible<T> boy;
+    //好兄弟持有上一个男生的引用
+    OnSubscrible<T> onSubscribe;
 
     private Func1<? super T, ? extends R> transfromer;
 
-    public OnSubscribleLift(OnSubscrible<T> boy, Func1<? super T, ? extends R> transfromer) {
-        this.boy = boy;
+    public OnSubscribleLift(OnSubscrible<T> onSubscribe, Func1<? super T, ? extends R> transfromer) {
+        this.onSubscribe = onSubscribe;
         this.transfromer = transfromer;
     }
 
@@ -25,8 +26,11 @@ public class OnSubscribleLift<T, R> implements OnSubscrible<R> {
      */
     @Override
     public void call(Subscrible<? super R> subscrible) {
+        /**
+         * 第一个subscrible为actual,即我们new的Subscrible<Bitmap>()对象
+         */
         Subscrible<? super T> wife = new OperaChange<>(subscrible, transfromer);
-        boy.call(wife);
+        onSubscribe.call(wife);
     }
 
 
@@ -50,10 +54,11 @@ public class OnSubscribleLift<T, R> implements OnSubscrible<R> {
         @Override
         public void onNext(T t) {
             /**
-             * 自己替换闺蜜
+             * 自己替换闺蜜,通过回调将T变成R
              * @param t
              */
             R r = this.transfrom.call(t);
+            //责任链的使用
             actual.onNext(r);
         }
     }

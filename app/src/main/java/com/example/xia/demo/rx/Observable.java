@@ -19,7 +19,7 @@ public class Observable<T> {
 
 
     /**
-     * 静态方法
+     * 静态方法，onSubscrible引用指向具体点的（第一个new的OnSubscrible<String>()） OnSubscrible实例化对象
      */
     public static <T> Observable<T> create(OnSubscrible<T> onSubscrible) {
         return new Observable<T>(onSubscrible);
